@@ -1,7 +1,7 @@
 services:
   web:
     build: ../app
-    command: uv sync && python manage.py runserver
+    command: uv sync && echo "Hello, World!" && cd /usr/src/app && python manage.py runserver
     volumes:
       - ./app/:/usr/src/app/
     ports:
