@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 # set work directory
 WORKDIR /app
@@ -13,5 +13,13 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml uv.lock .
 RUN uv sync --frozen --no-dev
 
+# copy entrypoint.sh
+COPY ./entrypoint.sh .
+RUN sed -i 's/\r$//g' /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
 # copy project
 COPY . .
+
+# run entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
