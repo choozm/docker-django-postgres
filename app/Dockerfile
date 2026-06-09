@@ -22,4 +22,4 @@ RUN sed -i 's/\r$//g' /app/entrypoint.sh
 COPY . .
 
 # run entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT [ "bash", "-c", "/app/entrypoint.sh"]
