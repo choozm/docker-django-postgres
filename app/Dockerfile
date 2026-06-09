@@ -15,5 +15,3 @@ RUN uv sync --frozen --no-dev
 
 # copy project
 COPY . .
-#EXPOSE 8000
-#CMD ["uv", "sync", "&&", "python", "manage.py", "runserver", "0.0.0.0:8000"]
