@@ -16,7 +16,7 @@ RUN uv sync --frozen --no-dev
 # copy entrypoint.sh
 COPY ./entrypoint.sh .
 RUN sed -i 's/\r$//g' entrypoint.sh
-RUN chmod +x entrypoint.sh
+RUN ["chmod", "+x", "entrypoint.sh"]
 
 # copy project
 COPY . .
