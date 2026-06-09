@@ -13,14 +13,14 @@ services:
   db:
     image: postgres:18
     volumes:
-      - postgres_data-dev:/var/lib/postgresql/data/
+      - postgres_data_dev:/var/lib/postgresql
     environment:
       - POSTGRES_USER=hello_django
       - POSTGRES_PASSWORD=hello_django
       - POSTGRES_DB=hello_django_dev
 
 volumes:
-  postgres_data-dev:
+  postgres_data_dev:
 
 networks:
   default:
