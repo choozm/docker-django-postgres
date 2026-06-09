@@ -22,4 +22,4 @@ RUN ["chmod", "+x", "/app/entrypoint.sh"]
 COPY . .
 
 # run entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+#ENTRYPOINT ["/app/entrypoint.sh"]
