@@ -14,12 +14,12 @@ COPY pyproject.toml uv.lock .
 RUN uv sync --frozen --no-dev
 
 # copy entrypoint.sh
-COPY ./entrypoint.sh .
+COPY --chmod=755 ./entrypoint.sh .
 RUN sed -i 's/\r$//g' /app/entrypoint.sh
-RUN ["chmod", "+x", "/app/entrypoint.sh"]
+#RUN ["chmod", "+x", "/app/entrypoint.sh"]
 
 # copy project
 COPY . .
 
 # run entrypoint.sh
-#ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
