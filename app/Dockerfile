@@ -2,7 +2,7 @@
 FROM python:3.14-slim
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -15,4 +15,7 @@ RUN uv sync --frozen --no-dev
 
 # copy project
 COPY . .
+
+EXPOSE 8000
+CMD ["uv", "run", "gunicorn", "portlens.wsgi:application", "--bind", "0.0.0.0:8000"]
 
