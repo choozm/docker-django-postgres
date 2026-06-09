@@ -1,9 +1,9 @@
 services:
   web:
     build: ../app
-    #command: uv sync && python manage.py runserver 0.0.0.0:8000
+    command: uv sync && python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./app/:/app
+      - ./app/:/usr/src/app/
     ports:
       - 8000:8000
     env_file:
