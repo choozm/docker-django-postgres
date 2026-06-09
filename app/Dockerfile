@@ -2,7 +2,7 @@
 FROM python:3.12-slim
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
