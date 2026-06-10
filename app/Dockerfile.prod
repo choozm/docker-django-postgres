@@ -49,12 +49,11 @@ WORKDIR $APP_HOME
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat-openbsd && rm -rf /var/lib/apt/lists/*
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY --from=builder /app/dist /wheels
 COPY --from=builder /app/pyproject.toml .
 COPY --from=builder /app/uv.lock .
-RUN uv pip install --upgrade pip
-RUN uv pip install --no-cache /wheels/*
+RUN pip install --upgrade pip
+RUN pip install --no-cache /wheels/*
 
 # copy entrypoint.prod.sh
 COPY ./entrypoint.prod.sh .
