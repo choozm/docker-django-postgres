@@ -25,7 +25,7 @@ RUN flake8 --ignore=E501,F401 .
 # install python dependencies
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml uv.lock .
-RUN uv build --wheel --out-dir wheels
+RUN uv build --wheel
 
 
 #########
@@ -49,7 +49,7 @@ WORKDIR $APP_HOME
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat-openbsd && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /app/wheels /wheels
+COPY --from=builder /app/dist /wheels
 COPY --from=builder /app/pyproject.toml .
 COPY --from=builder /app/uv.lock .
 RUN uv pip install --upgrade pip
