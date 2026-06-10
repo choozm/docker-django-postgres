@@ -25,7 +25,7 @@ RUN flake8 --ignore=E501,F401 .
 # install python dependencies
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml uv.lock .
-RUN uv build --wheel --output /app/wheels
+RUN uv build --wheel --out-dir /app/wheels
 
 
 #########
