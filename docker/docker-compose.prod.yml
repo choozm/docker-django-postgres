@@ -21,6 +21,9 @@ services:
     image: postgres:18-alpine
     volumes:
       - django_postgres_data:/var/lib/postgresql
+    # Open port for development purpose. Comment out this in production.
+    ports:
+      - 5432:5432
     env_file:
       - .env.prod.db
     healthcheck:
