@@ -35,17 +35,20 @@ RUN uv build --wheel
 # pull official base image
 FROM python:3.14-slim
 
-# create directory for the app user
-RUN mkdir -p /home/app
-
 # create the app user
 RUN addgroup --system app && adduser --system --group app
 
-# create the appropriate directories
+# Define your application environments
 ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
-RUN mkdir $APP_HOME
+
+# create the app directories
+RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
+
+# Silence PIP warnings globally because we are intentionally installing as root in a container.
+ENV PIP_ROOT_USER_ACTION=ignore
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat-openbsd && rm -rf /var/lib/apt/lists/*
@@ -55,7 +58,7 @@ COPY --from=builder /app/dist /wheels
 
 # install directly to system site-packages. No extra venv, no uv binary left in final image. 
 # --break-system-packages silences the root warning safely because this container is isolated.
-RUN pip install --no-cache-dir --break-system-packages /wheels/* && rm -rf /wheels
+RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
 
 # copy entrypoint.prod.sh
 COPY ./entrypoint.prod.sh .
