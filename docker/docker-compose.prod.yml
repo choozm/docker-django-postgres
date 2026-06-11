@@ -1,6 +1,6 @@
 services:
   web:
-    command: echo "Before" && gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000 && echo "After"
+    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
     image: choozm/docker-django-postgres:latest
     ports:
       - 8000:8000
