@@ -56,8 +56,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends netcat-openbsd 
 # copy built wheels from builder stage
 COPY --from=builder /app/dist /wheels
 
-# install directly to system site-packages. No extra venv, no uv binary left in final image. 
-# --break-system-packages silences the root warning safely because this container is isolated.
+# install directly to system site-packages. No extra venv, no uv binary left in final image.
 RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
 
 # copy entrypoint.prod.sh
