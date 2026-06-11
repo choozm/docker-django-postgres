@@ -1,6 +1,6 @@
 services:
   web:
-
+    #build: ./app
     command: uv run python manage.py runserver 0.0.0.0:8000
     image: choozm/docker-django-postgres:latest-dev
     ports:
