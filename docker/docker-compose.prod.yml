@@ -1,7 +1,7 @@
 services:
   web:
     #build: ./app
-    command: uv run gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
     image: choozm/docker-django-postgres:latest-dev
     ports:
       - 8000:8000
