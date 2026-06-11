@@ -49,14 +49,15 @@ WORKDIR $APP_HOME
 
 # install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends netcat-openbsd && rm -rf /var/lib/apt/lists/*
-#COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+
+# install python package in virtual environment to avoid "WARNING: Running pip as the 'root' user"
 COPY --from=builder /app/dist /wheels
 COPY --from=builder /app/pyproject.toml .
 COPY --from=builder /app/uv.lock .
-# install python package in virtual environment to avoid "WARNING: Running pip as the 'root' user"
-#RUN uv venv
-RUN pip install --upgrade pip
-RUN pip install --no-cache /wheels/*
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+RUN uv venv
+RUN uv pip install --upgrade pip
+RUN uv pip install --no-cache /wheels/*
 
 # copy entrypoint.prod.sh
 COPY ./entrypoint.prod.sh .
